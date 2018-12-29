@@ -1,0 +1,11 @@
+{
+  "name": "examples",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@v-forms/core": "0.1.1"
+  }
+}
