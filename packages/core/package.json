@@ -1,5 +1,5 @@
 {
-  "name": "v-forms",
+  "name": "@v-forms/core",
   "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/index.js",

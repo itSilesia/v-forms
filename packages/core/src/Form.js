@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {clone} from './clone'
+import { clone } from './clone'
 
 export const Form = Vue.extend({
   name: 'Form',
