@@ -5,17 +5,17 @@
   "module": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "build": "babel src --out-dir dist"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "^3.1.6",
-    "vue": "^2.5.17"
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "vue": "2.5.17"
   },
   "peerDependencies": {
-    "vue": "^2.5.17"
+    "vue": "2.5.17"
   }
 }
