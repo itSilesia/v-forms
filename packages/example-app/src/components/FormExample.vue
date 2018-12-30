@@ -10,12 +10,32 @@
           {{ props }}
 
           <input
-                  v-model="props.$v.email.$model"
+                  v-model.lazy="props.$v.email.$model"
                   :disabled="props.isSubmitting"
           />
+          <div
+            class="div"
+            v-if="props.errors.email && props.errors.email.minLength"
+          >
+            Email jest too short
+          </div>
+
+          <div
+                  class="div"
+                  v-if="props.errors.email && props.errors.email.maxLength"
+          >
+            Email jest too long
+          </div>
+
+          <div
+                  class="div"
+                  v-if="props.errors.email && props.errors.email.required"
+          >
+            Email jest required
+          </div>
 
           <input
-                  v-model="props.$v.password.$model"
+                  v-model.lazy="props.$v.password.$model"
                   :disabled="props.isSubmitting"
           />
 
@@ -36,7 +56,7 @@
 
 <script>
 import { Form } from "@v-forms/core";
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'FormExample',
@@ -45,6 +65,7 @@ export default {
   },
   methods: {
     handleSubmit(values, actions) {
+      console.log(values)
       setTimeout(() => {
         actions.setSubmitting(false)
       }, 2000)
@@ -54,7 +75,9 @@ export default {
     return {
       validations: {
         email: {
-          minLength: minLength(6)
+          required,
+          minLength: minLength(6),
+          maxLength: maxLength(10)
         },
         password: {
           required

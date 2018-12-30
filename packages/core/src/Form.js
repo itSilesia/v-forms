@@ -40,11 +40,20 @@ export const Form = Vue.extend({
   computed: {
     errors() {
       const errors = {}
-      Object.keys(this.initialValues).forEach(key => this.$v.values[key].$error && (errors[key] = true))
+      Object.keys(this.initialValues)
+        .forEach(key => this.$v.values[key].$error && (errors[key] = this.getErrors(this.$v.values[key])))
       return errors
     }
   },
   methods: {
+    getErrors($v) {
+      return Object.keys($v.$params).reduce((errors, error) => {
+        if (!$v[error]) {
+          errors[error] = true
+        }
+        return errors
+      }, {})
+    },
     setSubmitting(value) {
       this.isSubmitting = value
     },
@@ -58,8 +67,8 @@ export const Form = Vue.extend({
       console.log(this.errors)
       return {
         $v: this.$v.values,
+        errors: this.errors,
         ...this.$data,
-        ...this.errors,
         ...this.getActions(),
         handleSubmit: () => {
           if (process.env.NODE_ENV !== 'production') {
