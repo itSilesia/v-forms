@@ -55,8 +55,8 @@
 </template>
 
 <script>
-  import {Form} from "@v-forms/core";
-  import {required, minLength, maxLength} from 'vuelidate/lib/validators';
+  import { Form } from "@v-forms/core"
+  import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
     name: 'FormExample',
