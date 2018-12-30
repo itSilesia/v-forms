@@ -8,7 +8,7 @@ export const Form = Vue.extend({
   props: {
     initialValues: {
       type: Object,
-      default: null
+      default: () => ({})
     },
     onSubmit: {
       type: Function,
@@ -25,12 +25,23 @@ export const Form = Vue.extend({
     tag: {
       type: String,
       default: 'form'
+    },
+    validations: {
+      type: Object,
+      default: () => ({})
     }
   },
   data() {
     return {
       isSubmitting: false,
       values: this.initialValues ? clone(this.initialValues) : {}
+    }
+  },
+  computed: {
+    errors() {
+      const errors = {}
+      Object.keys(this.initialValues).forEach(key => this.$v.values[key].$error && (errors[key] = true))
+      return errors
     }
   },
   methods: {
@@ -44,8 +55,11 @@ export const Form = Vue.extend({
       }
     },
     getSlotProps() {
+      console.log(this.errors)
       return {
+        $v: this.$v.values,
         ...this.$data,
+        ...this.errors,
         ...this.getActions(),
         handleSubmit: () => {
           if (process.env.NODE_ENV !== 'production') {
@@ -75,13 +89,20 @@ export const Form = Vue.extend({
     },
     async reset() {
       this.values = this.initialValues ? clone(this.initialValues) : {}
+      this.$v.$reset()
     },
     async validate() {
-      return {}
+      return this.errors
     },
     executeSubmit() {
       this.onSubmit(clone(this.values))
     }
+  },
+  validations() {
+    const values = {}
+    Object.keys(this.initialValues).forEach(key => values[key] = {})
+    Object.entries(this.validations).forEach(([key, value]) => values[key] = value)
+    return { values }
   },
   render(h) {
     if (this.$scopedSlots.default) {
