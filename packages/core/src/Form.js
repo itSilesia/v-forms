@@ -11,7 +11,7 @@ export const Form = Vue.extend({
     onSubmit: {
       type: Function,
       default(values) {
-        this.$emit('submit', values)
+        this.$emit('submit', values, this.getActions())
       }
     },
     onReset: {
