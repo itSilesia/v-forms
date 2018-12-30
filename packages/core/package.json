@@ -15,5 +15,8 @@
   },
   "peerDependencies": {
     "vue": "2.5.17"
+  },
+  "dependencies": {
+    "vuelidate": "^0.7.4"
   }
 }

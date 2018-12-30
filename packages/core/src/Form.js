@@ -1,8 +1,10 @@
 import Vue from 'vue'
+import { validationMixin } from 'vuelidate'
 import { clone } from './clone'
 
 export const Form = Vue.extend({
   name: 'Form',
+  mixins: [validationMixin],
   props: {
     initialValues: {
       type: Object,
