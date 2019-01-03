@@ -1,7 +1,7 @@
 # v-forms
 
 <p align="center">
-<b>v-form</b>, easy and simple library which will help handle your forms.
+<b>v-forms</b>, easy and simple library which will help handle your forms.
 </p>
 
 ## Install
