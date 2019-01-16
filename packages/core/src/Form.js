@@ -64,7 +64,6 @@ export const Form = Vue.extend({
       }
     },
     getSlotProps() {
-      console.log(this.errors)
       return {
         $v: this.$v.values,
         errors: this.errors,
