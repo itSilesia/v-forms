@@ -80,10 +80,10 @@ export const Form = Vue.extend({
     },
     getSlotProps() {
       const values = this.getValues()
+      const { isSubmitting } = this
 
       return {
         errors: this.errors,
-        ...this.$data,
         ...this.getActions(),
         handleSubmit: () => {
           if (process.env.NODE_ENV !== 'production') {
@@ -98,6 +98,7 @@ export const Form = Vue.extend({
           return this.reset()
         },
         values,
+        isSubmitting,
       }
     },
     async submit() {
