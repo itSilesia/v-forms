@@ -1,6 +1,5 @@
 <template>
-  <div class="form-example">
-    <Form
+  <Form
       @submit="handleSubmit"
       :initial-values="{ email: 'lol', password: '' }"
       :validation-schema="validations"
@@ -8,50 +7,43 @@
       <template slot-scope="props">
         <div>
           {{ props }}
-
-          <input
-            v-model.lazy="props.values.email"
-            :disabled="props.isSubmitting"
-          />
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.minLength"
-          >
-            Email jest too short
-          </div>
-
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.maxLength"
-          >
-            Email jest too long
-          </div>
-
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.required"
-          >
-            Email jest required
-          </div>
-
-          <input
-            v-model.lazy="props.values.password"
-            :disabled="props.isSubmitting"
-          />
-
-          <button @click="props.handleReset">
-            Reset
-          </button>
-
-          <button @click="props.handleSubmit">
-            Click me
-          </button>
-
-          {{ props.errors }}
+           <VCard
+    max-width="800"
+    class="card"
+  >
+    <form>
+      <VTextField
+        v-model="props.values.email"
+        label="E-mail"
+        required
+      />
+      <VTextField
+        v-model="props.values.password"
+        label="Password"
+        required
+      />
+      <VCheckbox
+        v-model="checkbox"
+        label="Do you agree?"
+        required
+      />
+      <VBtn
+        color="success"
+        @click="submit"
+      >
+        submit
+      </VBtn>
+      <VBtn
+        color="warning"
+        @click="clear"
+      >
+        clear
+      </VBtn>
+    </form>
+  </VCard>
         </div>
       </template>
-    </Form>
-  </div>
+  </Form>
 </template>
 
 <script>
@@ -62,14 +54,6 @@
     name: 'FormExample',
     components: {
       Form
-    },
-    methods: {
-      handleSubmit(values, actions) {
-        console.log(values)
-        setTimeout(() => {
-          actions.setSubmitting(false)
-        }, 2000)
-      }
     },
     data() {
       return {
@@ -84,11 +68,25 @@
           }
         }
       }
+    },
+    methods: {
+      handleSubmit(values, actions) {
+        console.log(values)
+        setTimeout(() => {
+          actions.setSubmitting(false)
+        }, 2000)
+      }
     }
   }
 </script>
 
 <style scoped>
+  .card {
+    margin: 30px;
+    padding: 20px;
+    flex: 1;
+  }
+
   a {
     color: #42b983;
   }

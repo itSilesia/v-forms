@@ -1,15 +1,25 @@
 <template>
-  <div id="app">
-    <h1>Welcome to v-form Example App</h1>
-    <FormExample/>
-  </div>
+  <VApp class="app">
+    <VLayout
+      align-center
+      justify-start
+      column
+    >
+      <h1 class="header">
+        Welcome to v-form Example App
+      </h1>
+      <div class="form-container">
+        <FormExample />
+      </div>
+    </VLayout>
+  </VApp>
 </template>
 
 <script>
 import FormExample from './components/FormExample.vue'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     FormExample
   }
@@ -17,12 +27,19 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .app {
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  .header {
+    padding: 30px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: center;
+  }
 </style>
