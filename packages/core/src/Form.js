@@ -63,8 +63,8 @@ export const Form = Vue.extend({
         setSubmitting: this.setSubmitting
       }
     },
-    getSlotProps() {
-      const values = Object.entries(this.$v.values)
+    getValues() {
+      return Object.entries(this.$v.values)
         .filter(([key]) => !/^\$/.test(key))
         .reduce((values, [key, value]) => {
           Object.defineProperty(values, key, {
@@ -77,7 +77,10 @@ export const Form = Vue.extend({
           })
           return values
         }, {})
-      console.log(values, this.$v.values)
+    },
+    getSlotProps() {
+      const values = this.getValues()
+
       return {
         errors: this.errors,
         ...this.$data,
