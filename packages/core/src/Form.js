@@ -1,12 +1,14 @@
 import Vue from 'vue'
+import { validationMixin } from 'vuelidate'
 import { clone } from './clone'
 
 export const Form = Vue.extend({
   name: 'Form',
+  mixins: [validationMixin],
   props: {
     initialValues: {
       type: Object,
-      default: null
+      default: () => ({})
     },
     onSubmit: {
       type: Function,
@@ -23,6 +25,10 @@ export const Form = Vue.extend({
     tag: {
       type: String,
       default: 'form'
+    },
+    validations: {
+      type: Object,
+      default: () => ({})
     }
   },
   data() {
@@ -31,7 +37,23 @@ export const Form = Vue.extend({
       values: this.initialValues ? clone(this.initialValues) : {}
     }
   },
+  computed: {
+    errors() {
+      const errors = {}
+      Object.keys(this.initialValues)
+        .forEach(key => this.$v.values[key].$error && (errors[key] = this.getErrors(this.$v.values[key])))
+      return errors
+    }
+  },
   methods: {
+    getErrors($v) {
+      return Object.keys($v.$params).reduce((errors, error) => {
+        if (!$v[error]) {
+          errors[error] = true
+        }
+        return errors
+      }, {})
+    },
     setSubmitting(value) {
       this.isSubmitting = value
     },
@@ -43,6 +65,8 @@ export const Form = Vue.extend({
     },
     getSlotProps() {
       return {
+        $v: this.$v.values,
+        errors: this.errors,
         ...this.$data,
         ...this.getActions(),
         handleSubmit: () => {
@@ -73,13 +97,20 @@ export const Form = Vue.extend({
     },
     async reset() {
       this.values = this.initialValues ? clone(this.initialValues) : {}
+      this.$v.$reset()
     },
     async validate() {
-      return {}
+      return this.errors
     },
     executeSubmit() {
       this.onSubmit(clone(this.values))
     }
+  },
+  validations() {
+    const values = {}
+    Object.keys(this.initialValues).forEach(key => values[key] = {})
+    Object.entries(this.validations).forEach(([key, value]) => values[key] = value)
+    return { values }
   },
   render(h) {
     if (this.$scopedSlots.default) {

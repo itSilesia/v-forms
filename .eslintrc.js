@@ -14,6 +14,7 @@ module.exports = {
     semi: ['error', 'never'],
     'import/prefer-default-export': 'off',
     'import/extensions': ['error', 'never'],
-    'linebreak-style': 'off'
+    'linebreak-style': 'off',
+    'object-curly-spacing': ['error', 'always']
   }
 }
