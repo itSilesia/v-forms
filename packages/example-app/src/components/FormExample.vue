@@ -1,33 +1,31 @@
 <template>
-  <VCard
+  <Form
+      @submit="handleSubmit"
+      :initial-values="{ email: 'lol', password: '' }"
+      :validation-schema="validations"
+    >
+      <template slot-scope="props">
+        <div>
+          {{ props }}
+           <VCard
     max-width="800"
     class="card"
   >
     <form>
       <VTextField
-        v-model="name"
-        :error-messages="nameErrors"
-        :counter="10"
-        label="Name"
-        required
-        @input="$v.name.$touch()"
-        @blur="$v.name.$touch()"
-      />
-      <VTextField
-        v-model="email"
-        :error-messages="emailErrors"
+        v-model="props.values.email"
         label="E-mail"
         required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
+      />
+      <VTextField
+        v-model="props.values.password"
+        label="Password"
+        required
       />
       <VCheckbox
         v-model="checkbox"
-        :error-messages="checkboxErrors"
         label="Do you agree?"
         required
-        @change="$v.checkbox.$touch()"
-        @blur="$v.checkbox.$touch()"
       />
       <VBtn
         color="success"
@@ -43,6 +41,9 @@
       </VBtn>
     </form>
   </VCard>
+        </div>
+      </template>
+  </Form>
 </template>
 
 <script>
