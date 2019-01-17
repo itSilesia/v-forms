@@ -3,14 +3,14 @@
     <Form
       @submit="handleSubmit"
       :initial-values="{ email: 'lol', password: '' }"
-      :validations="validations"
+      :validation-schema="validations"
     >
       <template slot-scope="props">
         <div>
           {{ props }}
 
           <input
-            v-model.lazy="props.$v.email.$model"
+            v-model.lazy="props.values.email"
             :disabled="props.isSubmitting"
           />
           <div
@@ -35,7 +35,7 @@
           </div>
 
           <input
-            v-model.lazy="props.$v.password.$model"
+            v-model.lazy="props.values.password"
             :disabled="props.isSubmitting"
           />
 
