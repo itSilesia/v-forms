@@ -26,7 +26,7 @@ export const Form = Vue.extend({
       type: String,
       default: 'form'
     },
-    validations: {
+    validationSchema: {
       type: Object,
       default: () => ({})
     }
@@ -64,8 +64,21 @@ export const Form = Vue.extend({
       }
     },
     getSlotProps() {
+      const values = Object.entries(this.$v.values)
+        .filter(([key]) => !/^\$/.test(key))
+        .reduce((values, [key, value]) => {
+          Object.defineProperty(values, key, {
+            get() {
+              return value.$model
+            },
+            set(v) {
+              value.$model = v
+            }
+          })
+          return values
+        }, {})
+      console.log(values, this.$v.values)
       return {
-        $v: this.$v.values,
         errors: this.errors,
         ...this.$data,
         ...this.getActions(),
@@ -81,6 +94,7 @@ export const Form = Vue.extend({
           }
           return this.reset()
         },
+        values,
       }
     },
     async submit() {
@@ -109,7 +123,7 @@ export const Form = Vue.extend({
   validations() {
     const values = {}
     Object.keys(this.initialValues).forEach(key => values[key] = {})
-    Object.entries(this.validations).forEach(([key, value]) => values[key] = value)
+    Object.entries(this.validationSchema).forEach(([key, value]) => values[key] = value)
     return { values }
   },
   render(h) {
