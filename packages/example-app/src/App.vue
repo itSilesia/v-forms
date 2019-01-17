@@ -6,7 +6,7 @@
       column
     >
       <h1 class="header">
-        Welcome to v-form Example App
+        Welcome to v-forms Example App
       </h1>
       <div class="form-container">
         <FormExample />
