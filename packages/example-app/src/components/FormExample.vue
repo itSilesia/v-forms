@@ -1,57 +1,48 @@
 <template>
-  <div class="form-example">
-    <Form
-      @submit="handleSubmit"
-      :initial-values="{ email: 'lol', password: '' }"
-      :validations="validations"
-    >
-      <template slot-scope="props">
-        <div>
-          {{ props }}
-
-          <input
-            v-model.lazy="props.$v.email.$model"
-            :disabled="props.isSubmitting"
-          />
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.minLength"
-          >
-            Email jest too short
-          </div>
-
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.maxLength"
-          >
-            Email jest too long
-          </div>
-
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.required"
-          >
-            Email jest required
-          </div>
-
-          <input
-            v-model.lazy="props.$v.password.$model"
-            :disabled="props.isSubmitting"
-          />
-
-          <button @click="props.handleReset">
-            Reset
-          </button>
-
-          <button @click="props.handleSubmit">
-            Click me
-          </button>
-
-          {{ props.errors }}
-        </div>
-      </template>
-    </Form>
-  </div>
+  <VCard
+    max-width="800"
+    class="card"
+  >
+    <form>
+      <VTextField
+        v-model="name"
+        :error-messages="nameErrors"
+        :counter="10"
+        label="Name"
+        required
+        @input="$v.name.$touch()"
+        @blur="$v.name.$touch()"
+      />
+      <VTextField
+        v-model="email"
+        :error-messages="emailErrors"
+        label="E-mail"
+        required
+        @input="$v.email.$touch()"
+        @blur="$v.email.$touch()"
+      />
+      <VCheckbox
+        v-model="checkbox"
+        :error-messages="checkboxErrors"
+        label="Do you agree?"
+        required
+        @change="$v.checkbox.$touch()"
+        @blur="$v.checkbox.$touch()"
+      />
+      <VBtn
+        color="success"
+        @click="submit"
+      >
+        submit
+      </VBtn>
+      <VBtn
+        color="warning"
+        @click="clear"
+      >
+        clear
+      </VBtn>
+    </form>
+  </VCard>
 </template>
 
 <script>
@@ -62,14 +53,6 @@
     name: 'FormExample',
     components: {
       Form
-    },
-    methods: {
-      handleSubmit(values, actions) {
-        console.log(values)
-        setTimeout(() => {
-          actions.setSubmitting(false)
-        }, 2000)
-      }
     },
     data() {
       return {
@@ -84,11 +67,25 @@
           }
         }
       }
+    },
+    methods: {
+      handleSubmit(values, actions) {
+        console.log(values)
+        setTimeout(() => {
+          actions.setSubmitting(false)
+        }, 2000)
+      }
     }
   }
 </script>
 
 <style scoped>
+  .card {
+    margin: 30px;
+    padding: 20px;
+    flex: 1;
+  }
+
   a {
     color: #42b983;
   }
