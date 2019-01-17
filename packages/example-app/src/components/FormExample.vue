@@ -1,59 +1,74 @@
 <template>
   <Form
-      @submit="handleSubmit"
-      :initial-values="{ email: 'lol', password: '' }"
-      :validation-schema="validations"
-    >
-      <template slot-scope="props">
-        <div>
-          {{ props }}
-           <VCard
-    max-width="800"
-    class="card"
+    :initial-values="{
+      email: '',
+      password: ''
+    }"
+    :validation-schema="validations"
+    @submit="handleSubmit"
   >
-    <form>
-      <VTextField
-        v-model="props.values.email"
-        label="E-mail"
-        required
-      />
-      <VTextField
-        v-model="props.values.password"
-        label="Password"
-        required
-      />
-      <VCheckbox
-        v-model="checkbox"
-        label="Do you agree?"
-        required
-      />
-      <VBtn
-        color="success"
-        @click="submit"
-      >
-        submit
-      </VBtn>
-      <VBtn
-        color="warning"
-        @click="clear"
-      >
-        clear
-      </VBtn>
-    </form>
-  </VCard>
-        </div>
-      </template>
+    <template slot-scope="props">
+      <div>
+        <VCard
+          max-width="800"
+          min-width="600"
+          class="card"
+        >
+          <form>
+            <VTextField
+              v-model.lazy="props.values.email"
+              label="E-mail"
+            />
+            <ErrorMsg
+              v-if="props.errors.email && props.errors.email.required"
+              text="Email is required"
+            />
+            <ErrorMsg
+              v-if="props.errors.email && props.errors.email.minLength"
+              text="Email is too short"
+            />
+            <ErrorMsg
+              v-if="props.errors.email && props.errors.email.maxLength"
+              text="Email is too long"
+            />
+            <VTextField
+              v-model.lazy="props.values.password"
+              type="password"
+              label="Password"
+            />
+            <ErrorMsg
+              v-if="props.errors.password && props.errors.password.required"
+              text="Password is required"
+            />
+            <VBtn
+              color="success"
+              @click="props.handleSubmit"
+            >
+              submit
+            </VBtn>
+            <VBtn
+              color="warning"
+              @click="props.handleReset"
+            >
+              clear
+            </VBtn>
+          </form>
+        </VCard>
+      </div>
+    </template>
   </Form>
 </template>
 
 <script>
   import { Form } from "@v-forms/core"
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+  import ErrorMsg from "./ErrorMsg";
 
   export default {
     name: 'FormExample',
     components: {
-      Form
+      Form,
+      ErrorMsg,
     },
     data() {
       return {
@@ -68,14 +83,6 @@
           }
         }
       }
-    },
-    methods: {
-      handleSubmit(values, actions) {
-        console.log(values)
-        setTimeout(() => {
-          actions.setSubmitting(false)
-        }, 2000)
-      }
     }
   }
 </script>
@@ -85,9 +92,5 @@
     margin: 30px;
     padding: 20px;
     flex: 1;
-  }
-
-  a {
-    color: #42b983;
   }
 </style>
