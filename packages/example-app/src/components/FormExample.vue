@@ -68,6 +68,9 @@
       }
     },
     methods: {
+      handleSubmit(values) {
+        alert(JSON.stringify(values, null, 4))
+      },
       getEmailErrors({ required, minLength, maxLength } = {}) {
         const errors = []
 
