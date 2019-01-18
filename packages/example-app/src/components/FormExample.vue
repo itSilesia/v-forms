@@ -1,78 +1,60 @@
 <template>
-  <div class="form-example">
-    <Form
-      @submit="handleSubmit"
-      :initial-values="{ email: 'lol', password: '' }"
-      :validation-schema="validations"
-    >
-      <template slot-scope="props">
-        <div>
-          {{ props }}
-
-          <input
-            v-model.lazy="props.values.email"
-            :disabled="props.isSubmitting"
+  <Form
+    :initial-values="form"
+    :validation-schema="validations"
+    @submit="handleSubmit"
+  >
+    <template slot-scope="props">
+      <VCard
+        class="card"
+      >
+        <form>
+          <VTextField
+            :value="props.values.email"
+            :error-messages="getEmailErrors(props.errors.email)"
+            label="E-mail"
+            @change="props.values.email = $event"
           />
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.minLength"
-          >
-            Email jest too short
-          </div>
-
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.maxLength"
-          >
-            Email jest too long
-          </div>
-
-          <div
-            class="div"
-            v-if="props.errors.email && props.errors.email.required"
-          >
-            Email jest required
-          </div>
-
-          <input
-            v-model.lazy="props.values.password"
-            :disabled="props.isSubmitting"
+          <VTextField
+            :value="props.values.password"
+            :error-messages="getPasswordErrors(props.errors.password)"
+            type="password"
+            label="Password"
+            @change="props.values.password = $event"
           />
-
-          <button @click="props.handleReset">
-            Reset
-          </button>
-
-          <button @click="props.handleSubmit">
-            Click me
-          </button>
-
-          {{ props.errors }}
-        </div>
-      </template>
-    </Form>
-  </div>
+          <VBtn
+            color="success"
+            @click="props.handleSubmit"
+          >
+            Submit
+          </VBtn>
+          <VBtn
+            color="warning"
+            @click="props.handleReset"
+          >
+            Clear
+          </VBtn>
+        </form>
+      </VCard>
+    </template>
+  </Form>
 </template>
 
 <script>
-  import { Form } from "@v-forms/core"
+  import { Form } from '@v-forms/core'
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
     name: 'FormExample',
     components: {
-      Form
-    },
-    methods: {
-      handleSubmit(values, actions) {
-        console.log(values)
-        setTimeout(() => {
-          actions.setSubmitting(false)
-        }, 2000)
-      }
+      Form,
     },
     data() {
       return {
+        form: {
+          email: '',
+          password: ''
+        },
         validations: {
           email: {
             required,
@@ -84,12 +66,31 @@
           }
         }
       }
+    },
+    methods: {
+      handleSubmit(values) {
+        alert(JSON.stringify(values, null, 4))
+      },
+      getEmailErrors({ required, minLength, maxLength } = {}) {
+        const errors = []
+
+        if (required) errors.push('Email is required')
+        if (minLength) errors.push('Email is too short')
+        if (maxLength) errors.push('Email is too long')
+
+        return errors
+      },
+      getPasswordErrors({ required } = {}) {
+        const errors = []
+
+        if (required) errors.push('Password is required')
+
+        return errors
+      }
     }
   }
 </script>
 
 <style scoped>
-  a {
-    color: #42b983;
-  }
+
 </style>
