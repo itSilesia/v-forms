@@ -9,7 +9,7 @@
         Welcome to v-forms Example App
       </h1>
       <div class="form-container">
-        <FormExample />
+        <FormExample class="form" />
       </div>
     </VLayout>
   </VApp>
@@ -41,5 +41,12 @@ export default {
     flex-direction: row;
     align-self: stretch;
     justify-content: center;
+  }
+
+  .form {
+    max-width: 600px;
+    margin: 30px;
+    padding: 20px;
+    flex: 1;
   }
 </style>

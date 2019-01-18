@@ -1,77 +1,60 @@
 <template>
   <Form
-    :initial-values="{
-      email: '',
-      password: ''
-    }"
+    :initial-values="form"
     :validation-schema="validations"
     @submit="handleSubmit"
   >
     <template slot-scope="props">
-      <div>
-        <VCard
-          max-width="800"
-          min-width="600"
-          class="card"
-        >
-          <form>
-            <VTextField
-              v-model.lazy="props.values.email"
-              label="E-mail"
-            />
-            <ErrorMsg
-              v-if="props.errors.email && props.errors.email.required"
-              text="Email is required"
-            />
-            <ErrorMsg
-              v-if="props.errors.email && props.errors.email.minLength"
-              text="Email is too short"
-            />
-            <ErrorMsg
-              v-if="props.errors.email && props.errors.email.maxLength"
-              text="Email is too long"
-            />
-            <VTextField
-              v-model.lazy="props.values.password"
-              type="password"
-              label="Password"
-            />
-            <ErrorMsg
-              v-if="props.errors.password && props.errors.password.required"
-              text="Password is required"
-            />
-            <VBtn
-              color="success"
-              @click="props.handleSubmit"
-            >
-              submit
-            </VBtn>
-            <VBtn
-              color="warning"
-              @click="props.handleReset"
-            >
-              clear
-            </VBtn>
-          </form>
-        </VCard>
-      </div>
+      <VCard
+        class="card"
+      >
+        <form>
+          <VTextField
+            :value="props.values.email"
+            :error-messages="getEmailErrors(props.errors.email)"
+            label="E-mail"
+            @change="props.values.email = $event"
+          />
+          <VTextField
+            :value="props.values.password"
+            :error-messages="getPasswordErrors(props.errors.password)"
+            type="password"
+            label="Password"
+            @change="props.values.password = $event"
+          />
+          <VBtn
+            color="success"
+            @click="props.handleSubmit"
+          >
+            Submit
+          </VBtn>
+          <VBtn
+            color="warning"
+            @click="props.handleReset"
+          >
+            Clear
+          </VBtn>
+        </form>
+      </VCard>
     </template>
   </Form>
 </template>
 
 <script>
-  import { Form } from "@v-forms/core"
+  import { Form } from '@v-forms/core'
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
-  import ErrorMsg from "./ErrorMsg";
 
   export default {
     name: 'FormExample',
     components: {
       Form,
-      ErrorMsg,
     },
     data() {
       return {
+        form: {
+          email: '',
+          password: ''
+        },
         validations: {
           email: {
             required,
@@ -83,14 +66,28 @@
           }
         }
       }
+    },
+    methods: {
+      getEmailErrors({ required, minLength, maxLength } = {}) {
+        const errors = []
+
+        if (required) errors.push('Email is required')
+        if (minLength) errors.push('Email is too short')
+        if (maxLength) errors.push('Email is too long')
+
+        return errors
+      },
+      getPasswordErrors({ required } = {}) {
+        const errors = []
+
+        if (required) errors.push('Password is required')
+
+        return errors
+      }
     }
   }
 </script>
 
 <style scoped>
-  .card {
-    margin: 30px;
-    padding: 20px;
-    flex: 1;
-  }
+
 </style>
