@@ -104,8 +104,8 @@ export const Form = Vue.extend({
     async submit() {
       this.setSubmitting(true)
       try {
-        const errors = await this.validate()
-        const isValid = Object.keys(errors).length === 0
+        this.$v.values.$touch()
+        const isValid = !this.$v.values.$invalid
         if (isValid) {
           this.executeSubmit()
         }
