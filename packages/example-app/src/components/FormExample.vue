@@ -71,7 +71,7 @@
             required
           },
           agree: {
-            required: v => !!v
+            required: value => !!value
           }
         }
       }
