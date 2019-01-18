@@ -22,6 +22,11 @@
             label="Password"
             @change="props.values.password = $event"
           />
+          <VCheckbox
+            v-model="props.values.agree"
+            :error-messages="getAgreeErrors(props.errors.agree)"
+            label="Do you agree?"
+          />
           <VBtn
             color="success"
             @click="props.handleSubmit"
@@ -53,7 +58,8 @@
       return {
         form: {
           email: '',
-          password: ''
+          password: '',
+          agree: null
         },
         validations: {
           email: {
@@ -63,6 +69,9 @@
           },
           password: {
             required
+          },
+          agree: {
+            required: value => !!value
           }
         }
       }
@@ -86,7 +95,14 @@
         if (required) errors.push('Password is required')
 
         return errors
-      }
+      },
+      getAgreeErrors({ required } = {}) {
+        const errors = []
+
+        if (required) errors.push('You need to agree')
+
+        return errors
+      },
     }
   }
 </script>
