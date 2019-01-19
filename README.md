@@ -71,11 +71,11 @@ Then in your template:
 </template>
 ```
 
-More example how to use it you could find [below](#examples).
+More example how to use it you will find [below](#examples).
 
 ## Examples
 
-
+- [Vue CLI register form](packages/example-app)
 
 ## About
 
