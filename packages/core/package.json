@@ -1,0 +1,22 @@
+{
+  "name": "@v-forms/core",
+  "version": "0.1.1",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir dist"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "vue": "2.5.17"
+  },
+  "peerDependencies": {
+    "vue": "2.5.17"
+  },
+  "dependencies": {
+    "vuelidate": "^0.7.4"
+  }
+}

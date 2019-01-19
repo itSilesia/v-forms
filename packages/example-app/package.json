@@ -1,0 +1,32 @@
+{
+  "name": "example-app",
+  "version": "0.1.1",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@v-forms/core": "0.1.1",
+    "vue": "2.5.17",
+    "vuetify": "^1.4.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.2.0",
+    "@vue/cli-plugin-eslint": "^3.2.0",
+    "@vue/cli-service": "^3.2.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.11.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "2.5.17"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "peerDependencies": {
+    "vue-template-compiler": "^2.5.21"
+  }
+}
