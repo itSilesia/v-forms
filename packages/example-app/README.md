@@ -1,29 +1,18 @@
-# example-app
+# Vue CLI register form example
+
+Vue CLI app with basic form handling powered by **v-forms**. Features include:
+- state handling through use of `v-model` and lazy `@change` events
+- validations of form fields
+- form submission
+- form reset
 
 ## Project setup
+
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### How to run
 ```
 yarn run serve
 ```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
