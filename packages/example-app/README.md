@@ -1,6 +1,6 @@
 # Vue CLI register form example
 
-Vue CLI app with basic form handling powered by **v-forms**. Features include:`
+Vue CLI app with basic form handling powered by **v-forms**. Features include:
 - state handling through use of `v-model` and lazy `@change` events
 - validations of form fields
 - form submission
