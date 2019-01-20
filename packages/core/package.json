@@ -1,6 +1,12 @@
 {
   "name": "@v-forms/core",
+  "description": "v-forms - easy and simple library which will help handle your forms in Vue.",
   "version": "0.2.0",
+  "homepage": "https://github.com/itSilesia/v-forms#readme",
+  "contributors": [
+    "Szymon Janota (https://github.com/szymonjanota)",
+    "Marcin Łesek (https://github.com/marcinlesek)"
+  ],
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -8,7 +14,9 @@
     "dist/"
   ],
   "scripts": {
-    "build": "babel src --out-dir dist"
+    "build": "babel src --out-dir dist",
+    "prepack": "cp ../../README.md ./",
+    "prepublishOnly": "yarn build && yarn prepack"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
