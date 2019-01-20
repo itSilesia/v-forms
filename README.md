@@ -1,7 +1,7 @@
 # v-forms
 
 <p align="center">
-<b>v-forms</b>, easy and simple library which will help handle your forms.
+<b>v-forms</b>, easy and simple library which will help handle your forms in [Vue](https://vuejs.org/).
 </p>
 
 Vue.js gives us a lot of handy features which make our forms easy to implement. But as your app grows you can start noticing that each of your forms share some common parts, like submitting state or validation. This is where **v-forms** comes in. With its easy API made with use of awesome [Vuelidate](https://github.com/monterail/vuelidate) you can bring your forms to the next level right away.
