@@ -8,7 +8,9 @@
     "dist/"
   ],
   "scripts": {
-    "build": "babel src --out-dir dist"
+    "build": "babel src --out-dir dist",
+    "prepack": "cp ../../README.md ./",
+    "prepublishOnly": "yarn build && yarn prepack"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
