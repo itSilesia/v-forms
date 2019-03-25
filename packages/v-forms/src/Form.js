@@ -38,7 +38,8 @@ export const Form = Vue.extend({
     getActions() {
       return {
         validate: this.validate,
-        setSubmitting: this.setSubmitting
+        setSubmitting: this.setSubmitting,
+        handleReset: this.reset,
       }
     },
     getSlotProps() {
